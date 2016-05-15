@@ -1,0 +1,38 @@
+div.panel {
+  margin: 10px;
+}
+
+div.well {
+  margin: 10px;
+}
+
+ul.nav {
+  margin: 10px;
+}
+div#maincontent {
+  margin: 20px;
+}
+
+.terminal {
+  font-family: monospace;
+  margin-top: 15px;
+  /*height: 300px; /* %-height of the viewport */
+  /*width: 90vw;*/
+  color: white;
+  background-color: black;
+}
+
+.glyphicon {
+  margin-right: 10px;
+  margin-left: 10px;
+}
+iframe#servalstatusiframe {
+  height: 70vh;
+  width: 90vw;
+}
+/*.h-scroll {
+    height: 300px; /* %-height of the viewport */
+  /*  width: 90vw;
+    position: fixed;
+    overflow-y: scroll;
+}*/

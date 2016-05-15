@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <title>Serval App</title>
+
+  <!-- Bootstrap -->
+  <link href="css/bootstrap-orig.min.css" rel="stylesheet">
+  <link href="css/serval.css" rel="stylesheet">
+
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script>window.$ = window.jQuery = require('./js/jquery-1.12.3.min.js');</script>
+    <script src="js/jquery-1.12.3.min.js"></script>
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>-->
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/serval.js"></script>
+</head>
+
+<body>
+  <ul class="nav nav-tabs">
+    <li role="presentation" class="active"><a href="#home" data-toggle="tab"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+    <li role="presentation"><a href="#status" data-toggle="tab"><span class="glyphicon glyphicon-dashboard"></span> Status</a></li>
+    <li role="presentation"><a href="#messages" data-toggle="tab"><span class="glyphicon glyphicon-comment"></span> Messages</a></li>
+    <li role="presentation"><a href="#files" data-toggle="tab"><span class="glyphicon glyphicon-folder-open"></span> Files</a></li>
+    <li role="presentation"><a href="#settings" data-toggle="tab"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
+    <li role="presentation"><a href="#about" data-toggle="tab"><span class="glyphicon glyphicon-info-sign"></span> About</a></li>
+  </ul>
+
+<div class="tab-content" id="maincontent">
+  <div role="tabpanel" class="tab-pane active" id="home">
+
+  </div><script src="js/view_home.js"></script>
+
+  <div role="tabpanel" class="tab-pane" id="status">
+  </div> <script src="js/view_status.js"></script>
+
+  <div role="tabpanel" class="tab-pane" id="messages">
+  </div> <script src="js/view_msgs.js"></script>
+
+  <div role="tabpanel" class="tab-pane" id="files">
+  </div> <script src="js/view_files.js"></script>
+
+  <div role="tabpanel" class="tab-pane" id="settings">
+    Settings
+  </div>
+  <div role="tabpanel" class="tab-pane" id="about">
+
+  </div> <script src="js/view_about.js"></script>
+</div>
+
+<footer class="navbar-default navbar-fixed-bottom">
+        <div class="container">
+          <div class="well well-sm">Status: <span id="serval_status"></span></div>
+        </div>
+</footer>
+
+  <script src="js/index.js"></script>
+
+</body>
+
+</html>

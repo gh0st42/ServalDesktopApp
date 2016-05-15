@@ -1,0 +1,17 @@
+{
+  "name": "ServalApp",
+  "version": "1.0.0",
+  "description": "A simple desktop app for Serval",
+  "main": "app.js",
+  "author": "Lars Baumgaertner",
+  "dependencies": {
+    "pretty-bytes": "^2.0.1",
+    "shelljs": "^0.7.0"
+  },
+  "devDependencies": {
+    "electron-prebuilt": "^1.0.1"
+  },
+  "scripts": {
+    "start": "electron ."
+  }
+}
