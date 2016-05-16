@@ -12,6 +12,12 @@ function servalStatus(callBack) {
   var child = shell.exec("SERVALINSTANCE_PATH=" + servalinstance_path + " " + servalbinary + " status", callBack);
 }
 
+function servalVersion(callBack) {
+  if(callBack == null)
+    callBack = _dummycallback;
+  var child = shell.exec("SERVALINSTANCE_PATH=" + servalinstance_path + " " + servalbinary + " version", callBack);
+}
+
 function servalStart(callBack) {
   if(callBack == null)
     callBack = _dummycallback;

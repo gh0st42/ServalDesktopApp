@@ -1,0 +1,4 @@
+servalinstancepath/
+node_modules/
+*~
+*.bak
