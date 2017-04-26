@@ -5,6 +5,7 @@ var servalinstance_path = "/tmp/servalinstancepath";
 var servalbinary = "bin/servald-" + process.platform;
 var username="albert";
 var password="einstein"
+var peerlist=[];
 
 function _dummycallback(code, stdout, stderr) {
 
@@ -97,8 +98,30 @@ function servalGetStatus() {
     for(var i=0; i<lines.length; i++) {
       if(lines[i].indexOf('status:') == 0) {
         serval_status=lines[i].substring('status:'.length);
+        if(serval_status == "running") {
+          servalGetPeers();
+        }        
       }
     }
+  });
+}
+function servalGetPeers() {
+  servalGetAllPeers(function(code, stdout, stderr) {
+    console.log("Print Peers:");
+    var lines = stdout.split("\n");
+    var pl = []
+    for(var i=0; i<lines.length; i++) {
+      /*if(lines[i].indexOf('status:') == 0) {
+        serval_status=lines[i].substring('status:'.length);
+      }*/
+      
+      if(lines[i].length > 32) {
+//        console.log("FOUND:" + lines[i]);
+        pl.push(lines[i]);
+      }            
+    }
+    peerlist = pl.sort().filter(function(n){ return n != undefined });
+    console.log(peerlist);
   });
 }
 function sleep (time) {
