@@ -45,17 +45,33 @@ function redraw_peers() {
 
   $.each(peerlist, function (index, peer) {
     //if ($.inArray(peer, previous_peerlist) == -1) {
-      console.log("peer");
-      contacts_list.append(
-        '<a id="contact_' + peer + '" name="contact_' + peer + '" data-peer="' + peer + '" class="list-group-item list-group-item-ellipsis unselectable" onclick="reloadMessagelist(this)">' +
-        '<span>' + peer + '</span>' +
-        '</a>'
-      );
+    console.log("peer");
+    var x = contacts_list.append(
+      '<a id="contact_' + peer + '" name="contact_' + peer + '" data-peer="' + peer + '" class="list-group-item list-group-item-ellipsis unselectable" onclick="reloadMessagelist(this)">' +
+      '<span>' + peer + '</span>' +
+      '</a>'
+    );   
+    if (selected_peer_id == peer) {      
+      contacts_list.children().last().addClass("active");
+    }
     //}
   });
+  //console.log("SE " + selected_peer);  
+
 
 }
 
 draw_msgview();
 
 var peerlist_timer = setInterval(redraw_peers, 5000);
+var selected_peer_id = null;
+
+function reloadMessagelist(selected_peer_element) {
+  if (selected_peer_element == null) {
+    return;
+  }  
+  var peer = selected_peer_element.dataset.peer;
+  selected_peer_id = peer;
+  redraw_peers();
+  console.log(peer);  
+}

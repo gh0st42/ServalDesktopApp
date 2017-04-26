@@ -107,7 +107,7 @@ function servalGetStatus() {
 }
 function servalGetPeers() {
   servalGetAllPeers(function(code, stdout, stderr) {
-    console.log("Print Peers:");
+    //console.log("Print Peers:");
     var lines = stdout.split("\n");
     var pl = []
     for(var i=0; i<lines.length; i++) {
@@ -121,7 +121,7 @@ function servalGetPeers() {
       }            
     }
     peerlist = pl.sort().filter(function(n){ return n != undefined });
-    console.log(peerlist);
+    //console.log(peerlist);
   });
 }
 function sleep (time) {
