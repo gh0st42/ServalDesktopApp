@@ -65,6 +65,7 @@ draw_msgview();
 
 setTimeout(redraw_peers, 1000);
 var peerlist_timer = setInterval(redraw_peers, 5000);
+var msgs_timer = setInterval(stupidAutorefreshMsgs, 1000);
 var selected_peer_id = null;
 
 $("#inp_message").keyup(function (e) {
@@ -110,7 +111,9 @@ function submitMessage() {
 }
 
 var myid = null;
-
+function stupidAutorefreshMsgs() {
+    reloadMessagelist(getSelectedPeer());
+}
 function reloadMessagelist(selected_peer_element) {
     console.log("reload: " + selected_peer_element)
     if (selected_peer_element == null) {
