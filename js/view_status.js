@@ -1,8 +1,8 @@
 
 function draw_statusview() {
   console.log("draw_statusview");
-    $('#status').html(
-      `<div class="btn-group" role="group" aria-label="...">
+  $('#status').html(
+    `<div class="btn-group" role="group" aria-label="...">
         <button type="button" class="btn btn-default">Left</button>
         <button type="button" class="btn btn-default">Middle</button>
         <button type="button" class="btn btn-default">Right</button>
@@ -23,16 +23,16 @@ function draw_statusview() {
           </div>
         </div>
       </div>`
-    );
+  );
 }
 
 draw_statusview();
 
 function btnLog() {
-  servalGetCurrentLog(function(err,data) {
+  servalGetCurrentLog(function (err, data) {
     //console.log(data);
     var logoutput = $("#logoutput");
-    logoutput.html("<pre class='terminal'>"+data+"</pre>");
+    logoutput.html("<pre class='terminal'>" + data + "</pre>");
     //logoutput.scrollTop = logoutput.scrollHeight;
     // TODO: DIRTY HACK!
     logoutput.scrollTop(9999999);
@@ -40,25 +40,39 @@ function btnLog() {
 }
 
 function btnStart() {
-  servalStart(null);
-  refreshStatus();
-  setTimeout(function() {
-    document.getElementById('servalstatusiframe').src += '';
-
-    servalGetMySID(function(code, stdout, stderr) {
-      console.log('Exit code:', code);
-      console.log('Program output:', stdout);
-      console.log('Program stderr:', stderr);
-      var lines = stdout.split("\n");
-      if(lines.length > 1) {
-        for(var i=2; i<lines.length; i++) {
-          console.log(lines[i])
-        }
-      }
+  servalStart(function (code, stdout, stderr) {
+    sleep(1000).then(() => {
+      console.log("setting config");
+      servalConfigSet("api.restful.users." + username + ".password", password, function (code, stdout, stderr) {
+        servalRestful("keyring/identities.json", function (result) {
+          console.log(result["rows"]);
+          if (result["rows"].length < 1) {
+            servalKeyringAdd(null);
+          } else {
+            alert(result["rows"][0]);
+          }
+        });
+      });
+      });
     });
-  }, 5000);
-}
+    refreshStatus();
+    setTimeout(function () {
+      document.getElementById('servalstatusiframe').src += '';
+
+      servalGetMySID(function (code, stdout, stderr) {
+        console.log('Exit code:', code);
+        console.log('Program output:', stdout);
+        console.log('Program stderr:', stderr);
+        var lines = stdout.split("\n");
+        if (lines.length > 1) {
+          for (var i = 2; i < lines.length; i++) {
+            console.log(lines[i])
+          }
+        }
+      });
+    }, 5000);
+  }
 function btnStop() {
-  servalStop(null);
-  refreshStatus();
-}
+      servalStop(null);
+      refreshStatus();
+    }

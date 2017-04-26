@@ -17,43 +17,43 @@ function btnApplyIflist() {
 function draw_network_iflist() {
     var networkInterfaces = [];
     var iflist_html = "";
-    for (var key in os.networkInterfaces()) {                 
+    for (var key in os.networkInterfaces()) {
         networkInterfaces.push(key);
-        iflist_html += "<input type=\"checkbox\" /> " + key + " <br />";  
+        iflist_html += "<input type=\"checkbox\" /> " + key + " <br />";
     }
     iflist_html += "<input type=\"checkbox\" /> Custom: <input type=\"text\" id=\"custom_if\" /> <br />";
-    console.log(networkInterfaces);    
+    console.log(networkInterfaces);
     $('#iflist').html(iflist_html);
 }
 
 function btnApplyExpertSettings() {
-    console.log("btnApplyExpertSettings()");        
-    
-    var configdata = $('#expertsettingscontent').val();    
+    console.log("btnApplyExpertSettings()");
+
+    var configdata = $('#expertsettingscontent').val();
     var configfile = servalinstance_path + "/serval.conf"
-    
+
     try {
         fs.writeFileSync(configfile, configdata, 'utf8');
-     } catch(e) {
-         console.log(e);
-     }
+    } catch (e) {
+        console.log(e);
+    }
 }
 function draw_expert_settings() {
     var configfile = servalinstance_path + "/serval.conf"
     console.log("draw_expert_settings()");
-    var configdata="";
+    var configdata = "";
     try {
         configdata = fs.readFileSync(configfile, 'utf8');
-    } catch(e) {}
-    
+    } catch (e) { }
+
     console.log(configdata);
     $('#expertsettings').html("<textarea cols=40 rows=25 id='expertsettingscontent'>" + configdata + "</textarea>");
 }
 
-function draw_settings() {            
-  console.log("draw_settings");
+function draw_settings() {
+    console.log("draw_settings");
     $('#settings').html(
-      `
+        `
       <div class="panel panel-default">
         <div class="panel-heading">Interface List</div>
         <div class="panel-body">
@@ -81,7 +81,7 @@ function draw_settings() {
             <button type="button" class="btn btn-default" onclick="draw_expert_settings()"><span class="glyphicon glyphicon-refresh"></span> Reload</button>
         </div>
       </div>
-      `      
+      `
     );
     draw_network_iflist();
     draw_expert_settings();

@@ -1,7 +1,10 @@
 var shell = require('shelljs');
 
-var servalinstance_path = process.cwd() + "/servalinstancepath";
+//var servalinstance_path = process.cwd() + "/servalinstancepath";
+var servalinstance_path = "/tmp/servalinstancepath";
 var servalbinary = "bin/servald-" + process.platform;
+var username="albert";
+var password="einstein"
 
 function _dummycallback(code, stdout, stderr) {
 
@@ -33,7 +36,7 @@ function servalStop(callBack) {
 function servalConfigSet(key, value, callBack) {
   if(callBack == null)
     callBack = _dummycallback;
-  var child = shell.exec("SERVALINSTANCE_PATH=" + servalinstance_path + " " + servalbinary + " config set " + key + "=" + value, callBack);
+  var child = shell.exec("SERVALINSTANCE_PATH=" + servalinstance_path + " " + servalbinary + " config set " + key + " " + value, callBack);
 }
 
 function servalGetCurrentLog(callBack) {
@@ -49,9 +52,27 @@ function servalGetMySID(callBack) {
   var child = shell.exec("SERVALINSTANCE_PATH=" + servalinstance_path + " " + servalbinary + " id self", callBack);
 }
 
+function servalKeyringAdd(callBack) {
+  if(callBack == null)
+    callBack = _dummycallback;
+  var child = shell.exec("SERVALINSTANCE_PATH=" + servalinstance_path + " " + servalbinary + " keyring add", callBack);
+}
+
 var doStatusPoll = false;
 var serval_status = "n/a";
 
+function servalRestful(uri, successfunc) {
+  $.ajax({
+    url: "http://127.0.0.1:4110/restful/" + uri,
+    beforeSend: function(xhr) {
+        xhr.setRequestHeader("Authorization", "Basic " + window.btoa(username + ":" + password));
+    },
+    success: function(result) {
+        //console.log(result);
+        successfunc(result);
+    }
+});
+}
 function servalStartStatusPoll() {
   doStatusPoll = true;
   servalAutoUpdateStatus();
@@ -74,4 +95,12 @@ function servalGetStatus() {
       }
     }
   });
+}
+function sleep (time) {
+  return new Promise((resolve) => setTimeout(resolve, time));
+}
+function servalGetAllPeers(callBack) {
+  if(callBack == null)
+    callBack = _dummycallback;
+  var child = shell.exec("SERVALINSTANCE_PATH=" + servalinstance_path + " " + servalbinary + " id allpeers", callBack);
 }
