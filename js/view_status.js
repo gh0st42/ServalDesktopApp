@@ -47,32 +47,33 @@ function btnStart() {
         servalRestful("keyring/identities.json", function (result) {
           console.log(result["rows"]);
           if (result["rows"].length < 1) {
-            servalKeyringAdd(null);
+            //            servalKeyringAdd(null);
+            servalRestful("keyring/add",null);
           } else {
             alert(result["rows"][0]);
           }
         });
       });
-      });
     });
-    refreshStatus();
-    setTimeout(function () {
-      document.getElementById('servalstatusiframe').src += '';
+  });
+  refreshStatus();
+  setTimeout(function () {
+    document.getElementById('servalstatusiframe').src += '';
 
-      servalGetMySID(function (code, stdout, stderr) {
-        console.log('Exit code:', code);
-        console.log('Program output:', stdout);
-        console.log('Program stderr:', stderr);
-        var lines = stdout.split("\n");
-        if (lines.length > 1) {
-          for (var i = 2; i < lines.length; i++) {
-            console.log(lines[i])
-          }
+    servalGetMySID(function (code, stdout, stderr) {
+      console.log('Exit code:', code);
+      console.log('Program output:', stdout);
+      console.log('Program stderr:', stderr);
+      var lines = stdout.split("\n");
+      if (lines.length > 1) {
+        for (var i = 2; i < lines.length; i++) {
+          console.log(lines[i])
         }
-      });
-    }, 5000);
-  }
+      }
+    });
+  }, 5000);
+}
 function btnStop() {
-      servalStop(null);
-      refreshStatus();
-    }
+  servalStop(null);
+  refreshStatus();
+}

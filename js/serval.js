@@ -9,6 +9,9 @@ var password="einstein"
 function _dummycallback(code, stdout, stderr) {
 
 }
+function _dummysuccess(result) {
+
+}
 function servalStatus(callBack) {
   if(callBack == null)
     callBack = _dummycallback;
@@ -62,6 +65,8 @@ var doStatusPoll = false;
 var serval_status = "n/a";
 
 function servalRestful(uri, successfunc) {
+  if(successfunc == null)
+    successfunc = _dummysuccess;
   $.ajax({
     url: "http://127.0.0.1:4110/restful/" + uri,
     beforeSend: function(xhr) {
