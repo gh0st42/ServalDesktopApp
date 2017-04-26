@@ -68,11 +68,29 @@ var serval_status = "n/a";
 function servalRestful(uri, successfunc) {
   if(successfunc == null)
     successfunc = _dummysuccess;
-  $.ajax({
+  $.ajax({    
     url: "http://127.0.0.1:4110/restful/" + uri,
     beforeSend: function(xhr) {
         xhr.setRequestHeader("Authorization", "Basic " + window.btoa(username + ":" + password));
     },
+    success: function(result) {
+        //console.log(result);
+        successfunc(result);
+    }
+});
+}
+function servalRestfulPost(uri, payload, successfunc) {
+  if(successfunc == null)
+    successfunc = _dummysuccess;
+  $.ajax({
+    type: 'POST',
+    url: "http://127.0.0.1:4110/restful/" + uri,
+    data: payload,
+    beforeSend: function(xhr) {
+        xhr.setRequestHeader("Authorization", "Basic " + window.btoa(username + ":" + password));
+    },
+    contentType: false,
+    processData: false,
     success: function(result) {
         //console.log(result);
         successfunc(result);
@@ -131,4 +149,21 @@ function servalGetAllPeers(callBack) {
   if(callBack == null)
     callBack = _dummycallback;
   var child = shell.exec("SERVALINSTANCE_PATH=" + servalinstance_path + " " + servalbinary + " id allpeers", callBack);
+}
+
+function convertUnixTimestamp(timestamp) {
+    var message_date = new Date(timestamp*1000);
+    var today = new Date();
+    var result = "";
+
+    if (!sameDay(message_date, today)) {
+        result += message_date.toLocaleDateString() + " - ";
+    }
+    result += message_date.getHours() + ":" + message_date.getMinutes() + ":" + message_date.getSeconds();
+
+    return result;
+}
+
+function sameDay(d1, d2) {
+    return d1 - d1 % 86400000 == d2 - d2 % 86400000
 }
